@@ -1,1 +1,22 @@
+let express = require('express');
+let app = express();
 
+// For POST-Support
+let bodyParser = require('body-parser');
+let multer = require('multer');
+let upload = multer();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.post('/api/sayHello', upload.array(), (request, response) => {
+    let a = request.body.a;
+    let b = request.body.b;
+
+
+    let c = parseInt(a) + parseInt(b);
+    response.send('Result : '+c);
+    console.log('Result : '+c);
+});
+
+app.listen(3000);
